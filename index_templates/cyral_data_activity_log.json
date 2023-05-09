@@ -1,0 +1,426 @@
+{
+    "index_patterns": [
+        "filebeat-*",
+        "cyral-data-activity-logs*"
+    ],
+    "version": 1,
+    "_meta": {
+        "description": "Cyral Index Template Pattern for creating elasticsearch indices"
+    },
+    "template": {
+        "settings": {
+            "number_of_shards": 1
+        },
+        "mappings": {
+            "_meta": {
+                "beat": "filebeat",
+                "version": "7.12.1"
+            },
+            "date_detection": false,
+            "dynamic_templates": [
+                {
+                    "labels": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "labels.*"
+                    }
+                },
+                {
+                    "container.labels": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "container.labels.*"
+                    }
+                },
+                {
+                    "dns.answers": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "dns.answers.*"
+                    }
+                },
+                {
+                    "log.syslog": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "log.syslog.*"
+                    }
+                },
+                {
+                    "network.inner": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "network.inner.*"
+                    }
+                },
+                {
+                    "observer.egress": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "observer.egress.*"
+                    }
+                },
+                {
+                    "observer.ingress": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "observer.ingress.*"
+                    }
+                },
+                {
+                    "fields": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "fields.*"
+                    }
+                },
+                {
+                    "docker.container.labels": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "docker.container.labels.*"
+                    }
+                },
+                {
+                    "kubernetes.labels.*": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "*",
+                        "path_match": "kubernetes.labels.*"
+                    }
+                },
+                {
+                    "kubernetes.annotations.*": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "*",
+                        "path_match": "kubernetes.annotations.*"
+                    }
+                },
+                {
+                    "docker.attrs": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "docker.attrs.*"
+                    }
+                },
+                {
+                    "kibana.log.meta": {
+                        "mapping": {
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string",
+                        "path_match": "kibana.log.meta.*"
+                    }
+                },
+                {
+                    "strings_as_keyword": {
+                        "mapping": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "match_mapping_type": "string"
+                    }
+                }
+            ],
+            "properties": {
+                "@timestamp": {
+                    "type": "date"
+                },
+                "activityID": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                },
+                "activityId": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                },
+                "activityTime": {
+                    "format": "yyyy-MM-dd HH:mm:ss.nnnnnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnn Z z||yyyy-MM-dd HH:mm:ss.nnn Z z",
+                    "index": true,
+                    "ignore_malformed": false,
+                    "store": false,
+                    "type": "date_nanos",
+                    "doc_values": true
+                },
+                "activityTimeNanos": {
+                    "type": "long"
+                },
+                "activityTypes": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                },
+                "identity": {
+                    "type": "object",
+                    "properties": {
+                        "endUser": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "group": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "repoUser": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "dbRole": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "repo": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "name": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "type": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "host": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "port": {
+                            "type": "long"
+                        }
+                    }
+                },
+                "client": {
+                    "type": "object",
+                    "properties": {
+                        "host": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "port": {
+                            "type": "long"
+                        },
+                        "applicationName": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "connectionID": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "connectionId": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "connectionTime": {
+                            "format": "yyyy-MM-dd HH:mm:ss.nnnnnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnnn Z z||yyyy-MM-dd HH:mm:ss.nnnn Z z||yyyy-MM-dd HH:mm:ss.nnn Z z",
+                            "index": true,
+                            "ignore_malformed": false,
+                            "store": false,
+                            "type": "date_nanos",
+                            "doc_values": true
+                        },
+                        "connectionTimeNanos": {
+                            "type": "long"
+                        }
+                    }
+                },
+                "sidecar": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "name": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "autoScalingGroupInstance": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "tags": {
+                    "dynamic": true,
+                    "type": "object",
+                    "enabled": true,
+                    "properties": {
+                        "jiraID": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "request": {
+                    "type": "object",
+                    "properties": {
+                        "statement": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "statementType": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "isSensitive": {
+                            "type": "boolean"
+                        },
+                        "datasetsAccessed": {
+                            "type": "object",
+                            "properties": {
+                                "dataset": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                },
+                                "accessType": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                }
+                            }
+                        },
+                        "fieldsAccessed": {
+                            "type": "object",
+                            "properties": {
+                                "field": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                },
+                                "label": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                },
+                                "accessType": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                }
+                            }
+                        },
+                        "filters": {
+                            "type": "object",
+                            "properties": {
+                                "field": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                },
+                                "op": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                },
+                                "value": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                }
+                            }
+                        }
+                    }
+                },
+                "response": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "isError": {
+                            "type": "boolean"
+                        },
+                        "records": {
+                            "type": "long"
+                        },
+                        "bytes": {
+                            "type": "long"
+                        },
+                        "classifications": {
+                            "type": "object",
+                            "properties": {
+                                "field": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                },
+                                "tags": {
+                                    "ignore_above": 1024,
+                                    "type": "keyword"
+                                }
+                            }
+                        },
+                        "executionTime": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "executionTimeNanos": {
+                            "type": "long"
+                        }
+                    }
+                },
+                "policyViolated": {
+                    "type": "boolean"
+                },
+                "policyViolations": {
+                    "type": "object",
+                    "properties": {
+                        "label": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "policyName": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "policyID": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "policyId": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "accessType": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "selectedIdentity": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        },
+                        "reasons": {
+                            "type": "text"
+                        },
+                        "severity": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
