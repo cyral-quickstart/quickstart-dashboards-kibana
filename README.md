@@ -30,7 +30,7 @@ After this is installed, you can import the provided dashboards that will provid
 
 ### Additional Steps (Optional)
 
-If this is a new ELK instance already has some `cyral-data-activity-log*` indexes, then you’ll need to possibly reindex those. If you are receiving shard errors on those existing `cyral-data-activity-logs*` indexes, perform the following steps.
+If this ELK instance already has some `cyral-data-activity-log*` indexes, then you’ll need to possibly reindex those. If you are receiving shard errors on those existing `cyral-data-activity-logs*` indexes, perform the following steps.
 
 1. You’ll need to reindex each old index so that it will be built using the provided template using the Dev Tools request similar to the below. This command should tell ELK to copy the cyral-data-activity-logs-2023.05.05 into cyral-data-activity-logs-2023.05.05-new and reindex it. As this matches our pattern above for the template, cyral-data-activity-logs*, it should be correctly indexed into the format that our dashboards and scripted fields expect.
    - This does not accept wildcards so it’ll need to be repeated for each index that exists.
